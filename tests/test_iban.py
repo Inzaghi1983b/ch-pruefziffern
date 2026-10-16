@@ -21,7 +21,12 @@ UNGULTIGE_IBANS = [
     "CH93007620116238529-7",  # unerlaubtes Zeichen
     "CH93007620 116238529A7",  # Buchstabe statt Ziffer im Institut
     "XX9300762011623852957",  # unbekannter Laendercode
+    "CH5600762011623852ß7",  # Nicht-ASCII: "ß".upper() waere "SS", siehe naechste Zeile
 ]
+
+
+def test_ss_variante_ist_gueltig_nur_ascii_zaehlt() -> None:
+    assert ist_gueltige_iban("CH5600762011623852SS7") is True
 
 
 @pytest.mark.parametrize("iban", GUELTIGE_IBANS)

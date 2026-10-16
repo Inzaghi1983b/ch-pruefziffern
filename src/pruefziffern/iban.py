@@ -29,8 +29,12 @@ def _ist_ziffer_oder_grossbuchstabe(zeichen: str) -> bool:
 
 
 def _normalisiere(text: object) -> str | None:
-    """Leerzeichen entfernen und in Grossbuchstaben umwandeln, sonst None."""
-    if not isinstance(text, str):
+    """Leerzeichen entfernen und in Grossbuchstaben umwandeln, sonst None.
+
+    Nicht-ASCII-Text ergibt None: ``upper()`` wuerde sonst z. B. aus ``ß`` die gueltigen
+    Zeichen ``SS`` machen.
+    """
+    if not isinstance(text, str) or not text.isascii():
         return None
     return text.replace(" ", "").upper()
 
